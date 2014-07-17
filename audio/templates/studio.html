@@ -1,0 +1,49 @@
+{% load i18n %}
+{% spaceless %}
+
+<script id="metadata-editor-tpl" type="text/template">
+  <ul class="list-input settings-list">
+    <% _.each(_.range(numEntries), function() { %>
+    <li class="field comp-setting-entry metadata_entry">
+    </li>
+    <% }) %>
+  </ul>
+
+  <div class="xblock-actions">
+    <span class="xblock-editor-error-message"></span>
+    <ul>
+      <li class="action-item">
+        <a href="#" class="button action-primary save-button">Save</a>
+      </li>
+      <li class="action-item">
+        <a href="#" class="button cancel-button">Cancel</a>
+      </li>
+    </ul>
+  </div>
+</script>
+
+<script id="metadata-string-entry" type="text/template">
+  <div class="wrapper-comp-setting">
+    <label class="label setting-label" for="<%= uniqueId %>"><%= model.get('display_name') %></label>
+    <input class="input setting-input" type="text" id="<%= uniqueId %>" value="<%= model.get('value') %>" data-field-name="<%= model.get('field_name') %>" />
+    <button class="action setting-clear inactive" type="button" name="setting-clear" value="Clear" data-tooltip="Clear">
+      <i class="icon-undo"></i>
+    </button>
+  </div>
+  <span class="tip setting-help"><%= model.get('help') %></span>
+</script>
+
+<script id="metadata-number-entry" type="text/template">
+  <div class="wrapper-comp-setting">
+    <label class="label setting-label" for="<%= uniqueId %>"><%= model.get('display_name') %></label>
+    <input class="input setting-input setting-input-number" type="number" id="<%= uniqueId %>" value="<%= model.get('value') %>" data-field-name="<%= model.get('field_name') %>" />
+    <button class="action setting-clear inactive" type="button" name="setting-clear" value="Clear" data-tooltip="Clear">
+      <i class="icon-undo"></i>
+    </button>
+  </div>
+  <span class="tip setting-help"><%= model.get('help') %></span>
+</script>
+
+<div id="settings-tab" class="wrapper-comp-settings metadata_edit editor-with-buttons" data-metadata="{{ metadata_fields }}"></div>
+
+{% endspaceless %}
