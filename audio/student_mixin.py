@@ -21,6 +21,7 @@ class StudentMixin(object):
         template = render_template('templates/student.html')
         frag = Fragment(template)
         frag.add_css(load_resource('static/style/xblock-audio.min.css'))
+        frag.add_javascript(load_resource('static/script/howler.min.js'))
         frag.add_javascript(load_resource('static/script/xblock-audio.min.js'))
         frag.initialize_js('AudioXBlockStudent')
         return frag

@@ -99,6 +99,9 @@ module.exports = function (grunt) {
                         '<%= c.static %>/script/src/studio.js',
                         '<%= c.static %>/script/src/student.js',
                         '<%= c.static %>/script/src/xblock.js'
+                    ],
+                    '<%= c.static %>/script/howler.min.js': [
+                        'node_modules/howler/howler.js'
                     ]
                 }
             }
