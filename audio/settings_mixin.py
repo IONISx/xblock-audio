@@ -41,7 +41,6 @@ class SettingsMixin(object):
         help="Determines whether the sound will autoplay when loading the component."
     )
 
-
     def has_dynamic_children(self):
         return False
 
