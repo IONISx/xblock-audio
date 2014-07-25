@@ -3,9 +3,9 @@ Settings for Audio XBlock
 """
 
 from xblock.core import XBlock
-from xblock.fields import Scope, String, Integer, Float, List, Dict
+from xblock.fields import Scope, String, Integer, Float, List, Dict, Boolean
 
-from audio.defaults import DISPLAY_NAME
+import audio.defaults as defaults
 
 
 class SettingsMixin(object):
@@ -14,8 +14,8 @@ class SettingsMixin(object):
     """
 
     display_name = String(
-        default=DISPLAY_NAME,
-        display_name="Display Name",
+        default=defaults.DISPLAY_NAME,
+        display_name="Display name",
         scope=Scope.settings,
         help="This name appears in the horizontal navigation at the top of the page."
     )
@@ -25,6 +25,22 @@ class SettingsMixin(object):
         scope=Scope.settings,
         help="This is the address of the sound you want to play."
     )
+
+    max_plays = Integer(
+        display_name="Maximum play count",
+        scope=Scope.settings,
+        values={"min": 0},
+        help=("Defines the number of times a student can play the track. "
+              "If the value is not set, infinite plays are allowed.")
+    )
+
+    autoplay = Boolean(
+        default=defaults.AUTOPLAY,
+        display_name="Autoplay",
+        scope=Scope.settings,
+        help="Determines whether the sound will autoplay when loading the component."
+    )
+
 
     def has_dynamic_children(self):
         return False
