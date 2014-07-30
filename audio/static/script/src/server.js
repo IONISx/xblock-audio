@@ -12,25 +12,47 @@ AudioXBlock.Server.prototype = {
         return this.runtime.handlerUrl(this.element, handler);
     },
 
-    edit: function (data) {
-        var url = this.url('edit');
-        var payload = JSON.stringify(data);
+    request: function (url, data) {
+        return $.ajax({
+            type: 'POST',
+            url: this.url(url),
+            data: JSON.stringify(data | {})
+        });
+    },
 
-        return $.Deferred(function (defer) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: payload
-            }).done(function (data) {
+    get_sound_url: function () {
+        var deferred = $.Deferred();
+
+        this.request('get_sound_url')
+            .done(function (data) {
                 if (data.success) {
-                    defer.resolve();
+                    deferred.resolve(data.url);
                 }
                 else {
-                    defer.rejectWith(this, [data.msg]);
+                    deferred.reject([data.msg]);
                 }
             }).fail(function () {
-                defer.rejectWith(this, ['This problem could not be saved.']);
+                deferred.reject(['Unable to retrieve the sound url']);
             });
-        }).promise();
+
+        return deferred.promise();
+    },
+
+    edit: function (data) {
+        var deferred = $.Deferred();
+
+        this.request('edit', data)
+            .done(function (data) {
+                if (data.success) {
+                    deferred.resolve(data);
+                }
+                else {
+                    deferred.reject([data.msg]);
+                }
+            }).fail(function () {
+                deferred.reject(['This problem could not be saved.']);
+            });
+
+        return deferred.promise();
     }
 };
