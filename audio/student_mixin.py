@@ -15,9 +15,30 @@ class StudentMixin(object):
     """
 
     plays = Integer(
+        default=0,
         scope=Scope.user_state,
         help="Number of times the sound was played"
     )
+
+    @property
+    def can_play(self):
+        return self.max_plays is None or self.plays < self.max_plays
+
+    def _get_sound_url(self):
+        if self.can_play:
+            return self.file_url
+
+        return None
+
+    def _get_state(self):
+        return {
+            'plays': self.plays,
+            'max_plays': self.max_plays,
+            'can_play': self.can_play,
+            'options': {
+                'autoplay': self.autoplay
+            }
+        }
 
     def student_view(self, context=None):
         """
@@ -33,15 +54,27 @@ class StudentMixin(object):
         frag.initialize_js('AudioXBlockStudent')
         return frag
 
+
     @XBlock.json_handler
-    def get_sound_url(self, data, suffix=''):
-        if self.max_plays and self.plays >= self.max_plays:
+    def get_state(self, data, suffix=''):
+        state = self._get_state()
+
+        return {
+            'state': state,
+            'success': True
+        }
+
+
+    @XBlock.json_handler
+    def play(self, data, suffix=''):
+        if self.can_play:
+            self.plays +=1
+
             return {
-                'success': False,
-                'msg': 'User ran out of allowed sound plays'
+                'url': self._get_sound_url(),
+                'success': True
             }
 
         return {
-            'success': True,
-            'url': self.file_url
+            'success': False
         }

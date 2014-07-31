@@ -16,14 +16,32 @@ AudioXBlock.Server.prototype = {
         return $.ajax({
             type: 'POST',
             url: this.url(url),
-            data: JSON.stringify(data | {})
+            data: JSON.stringify(data || {})
         });
     },
 
-    get_sound_url: function () {
+    get_state: function () {
         var deferred = $.Deferred();
 
-        this.request('get_sound_url')
+        this.request('get_state')
+            .done(function (data) {
+                if (data.success) {
+                    deferred.resolve(data.state);
+                }
+                else {
+                    deferred.reject([data.msg]);
+                }
+            }).fail(function () {
+                deferred.reject(['Unable to retrieve the sound url']);
+            });
+
+        return deferred.promise();
+    },
+
+    play: function () {
+        var deferred = $.Deferred();
+
+        this.request('play')
             .done(function (data) {
                 if (data.success) {
                     deferred.resolve(data.url);
