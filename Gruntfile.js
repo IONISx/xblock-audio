@@ -49,7 +49,9 @@ module.exports = function (grunt) {
                     'browser': true,
                     'jquery': true,
                     'globals': {
-                        'AudioXBlock': true
+                        'AudioXBlock': true,
+                        'Handlebars': true,
+                        'Howl': true
                     }
                 },
                 files: {
@@ -102,6 +104,9 @@ module.exports = function (grunt) {
                     ],
                     '<%= c.static %>/script/howler.min.js': [
                         'node_modules/howler/howler.js'
+                    ],
+                    '<%= c.static %>/script/handlebars.min.js': [
+                        'node_modules/handlebars/dist/handlebars.js'
                     ]
                 }
             }

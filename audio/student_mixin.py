@@ -50,10 +50,10 @@ class StudentMixin(object):
         frag = Fragment(template)
         frag.add_css(load_resource('static/style/xblock-audio.min.css'))
         frag.add_javascript(load_resource('static/script/howler.min.js'))
+        frag.add_javascript(load_resource('static/script/handlebars.min.js'))
         frag.add_javascript(load_resource('static/script/xblock-audio.min.js'))
         frag.initialize_js('AudioXBlockStudent')
         return frag
-
 
     @XBlock.json_handler
     def get_state(self, data, suffix=''):
@@ -64,11 +64,10 @@ class StudentMixin(object):
             'success': True
         }
 
-
     @XBlock.json_handler
     def play(self, data, suffix=''):
         if self.can_play:
-            self.plays +=1
+            self.plays += 1
 
             return {
                 'url': self._get_sound_url(),

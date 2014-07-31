@@ -2,6 +2,21 @@
 {% spaceless %}
 
 <div class="wrapper xblock-wrapper xblock-audio-wrapper">
+  {% verbatim %}
+  <script id="xblock-audio-template" type="text/x-handlebars-template">
+    {{#if can_play}}
+    <div>
+      Vous avez écouté ce son {{ plays }} fois sur {{ max_plays }}.
+    </div>
+    {{else}}
+    <div>
+      <span class="icon-exclamation-sign fa fa-exclamation-circle"></span> Vous ne pouvez plus jouer ce son.
+    </div>
+    {{/if}}
+  </script>
+  {% endverbatim %}
+  <div class="content">
+  </div>
 </div>
 
 {% endspaceless %}

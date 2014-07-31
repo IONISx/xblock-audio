@@ -9,37 +9,35 @@ AudioXBlock.StudentView.prototype = {
         this.element = $(element);
 
         this.state = null;
+
+        this.template = Handlebars.compile(
+            this.element.find('#xblock-audio-template').html()
+        );
     },
 
     _updateState: function () {
         var self = this;
         var deferred = $.Deferred();
 
-        return this.server.get_state()
+        this.server.get_state()
             .done(function (state) {
                 self.state = state;
-                console.log(state);
                 deferred.resolve(state);
             })
             .fail(function (err) {
                 deferred.reject(err);
-            })
+            });
 
         return deferred.promise();
     },
 
     play: function () {
-        var self = this;
-
         this.server.play()
             .done(function (url) {
-                var sound = new Howl({
+                new Howl({
                     urls: [url],
                     autoplay: true
                 });
-            })
-            .fail(function () {
-                console.log('cannot play');
             });
     },
 
@@ -48,6 +46,10 @@ AudioXBlock.StudentView.prototype = {
 
         this._updateState()
             .done(function () {
+                self.element.find('.content').html(
+                    self.template(self.state)
+                );
+
                 if (self.state.options.autoplay) {
                     self.play();
                 }
