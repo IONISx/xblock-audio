@@ -41,6 +41,13 @@ class SettingsMixin(object):
         help="Determines whether the sound will autoplay when loading the component."
     )
 
+    show_controls = Boolean(
+        default=defaults.SHOW_CONTROLS,
+        display_name="Show controls",
+        scope=Scope.settings,
+        help="Determines whether the student will have access to the sound player controls."
+    )
+
     def has_dynamic_children(self):
         return False
 

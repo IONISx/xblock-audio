@@ -7,3 +7,4 @@ Default data initializations for the block
 DISPLAY_NAME = "Audio track"
 
 AUTOPLAY = False
+SHOW_CONTROLS = True
