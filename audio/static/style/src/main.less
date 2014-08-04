@@ -1,2 +1,26 @@
-.audio-xblock-wrapper {
+.xblock-audio-wrapper {
+    .player {
+        @control-bg: #3ea5ce;
+        @control-fg: #fff;
+
+        .control {
+            box-sizing: border-box;
+            width: 30px;
+            height: 30px;
+            font-size: 0.9em;
+            display: inline-block;
+            border-radius: 4px;
+            text-align: center;
+            padding-top: 2px;
+            background-color: @control-bg;
+            color: @control-fg;
+            border: 1px solid @control-bg;
+            cursor: pointer;
+
+            &:hover {
+                background-color: @control-fg;
+                color: @control-bg;
+            }
+        }
+    }
 }

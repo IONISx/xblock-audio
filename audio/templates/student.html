@@ -3,19 +3,54 @@
 
 <div class="wrapper xblock-wrapper xblock-audio-wrapper">
   {% verbatim %}
-  <script id="xblock-audio-template" type="text/x-handlebars-template">
-    {{#if can_play}}
+  <script id="xblock-audio-main" type="text/x-handlebars-template">
+    {{#if canPlay}}
     <div>
-      Vous avez écouté ce son {{ plays }} fois sur {{ max_plays }}.
+      {{#if plays}}
+      {{#if maxPlays}}
+      Vous avez écouté ce son {{ plays }} fois sur {{ maxPlays }}.
+      {{else}}
+      Vous avez écouté ce son {{ plays }} fois.
+      {{/if}}
+      {{else}}
+      Vous n’avez pas encore écouté ce son.
+      {{#if onlyOnePlay}}
+      Attention, vous ne pouvez l’écouter qu’une fois.
+      {{/if}}
+      {{/if}}
     </div>
     {{else}}
     <div>
-      <span class="icon-exclamation-sign fa fa-exclamation-circle"></span> Vous ne pouvez plus jouer ce son.
+      {{#if playing}}
+      <span class="icon-play-sign fa fa-play-circle"></span>
+      {{#if lastPlay}}
+      {{#if onlyOnePlay}}
+      Attention, il s’agit de votre seule écoute, écoutez attentivement !
+      {{else}}
+      Attention, il s’agit de votre dernière écoute !
+      {{/if}}
+      {{/if}}
+      {{else}}
+      <span class="icon-exclamation-sign fa fa-exclamation-circle"></span>
+      Vous ne pouvez {{#if plays}}plus{{else}}pas{{/if}} jouer ce son.
+      {{/if}}
     </div>
     {{/if}}
   </script>
+
+  <script id="xblock-audio-player" type="text/x-handlebars-template">
+    <div class="player">
+      {{#if playing}}
+      <a class="control pause"><span class="icon-pause fa fa-pause"></span></a>
+      {{else}}
+      <a class="control play"><span class="icon-play fa fa-play"></span></a>
+      {{/if}}
+      <a class="control stop"><span class="icon-stop fa fa-stop"></span></a>
+    </div>
+    <hr>
+  </script>
   {% endverbatim %}
-  <div class="content">
+  <div class="xblock-audio-content">
   </div>
 </div>
 

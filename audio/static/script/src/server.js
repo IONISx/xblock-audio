@@ -20,7 +20,7 @@ AudioXBlock.Server.prototype = {
         });
     },
 
-    get_state: function () {
+    getState: function () {
         var deferred = $.Deferred();
 
         this.request('get_state')
