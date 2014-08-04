@@ -21,8 +21,14 @@ class StudentMixin(object):
     )
 
     @property
+    def configured(self):
+        return True if self.file_url else False
+
+    @property
     def can_play(self):
-        return self.max_plays is None or self.plays < self.max_plays
+        return self.configured and (
+            self.max_plays is None or self.plays < self.max_plays
+        )
 
     def _get_sound_url(self):
         if self.can_play:
@@ -32,10 +38,12 @@ class StudentMixin(object):
 
     def _get_state(self):
         return {
+            'configured': self.configured,
             'plays': self.plays,
             'max_plays': self.max_plays,
             'can_play': self.can_play,
             'options': {
+                'showControls': self.show_controls,
                 'autoplay': self.autoplay
             }
         }
