@@ -17,7 +17,7 @@ AudioXBlock.StudentView.prototype = {
             player: Handlebars.compile(
                 this.element.find('#xblock-audio-player').html()
             )
-        }
+        };
     },
 
     _initializeEvents: function () {
@@ -48,8 +48,6 @@ AudioXBlock.StudentView.prototype = {
         if (this.sound) {
             delete this.sound;
         }
-
-        console.log(url);
 
         this.sound = new Howl({
             urls: [url],
@@ -99,7 +97,6 @@ AudioXBlock.StudentView.prototype = {
         else {
             this.server.play()
                 .done(function (url) {
-                    console.log('play done', arguments);
                     self._createSound(url);
                     self.sound.play();
                     self.playerState = 'playing';

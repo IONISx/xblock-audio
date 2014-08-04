@@ -49,6 +49,7 @@ module.exports = function (grunt) {
                     'browser': true,
                     'jquery': true,
                     'globals': {
+                        '_': true,
                         'AudioXBlock': true,
                         'Handlebars': true,
                         'Howl': true
