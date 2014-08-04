@@ -40,8 +40,8 @@ class StudentMixin(object):
         return {
             'configured': self.configured,
             'plays': self.plays,
-            'max_plays': self.max_plays,
-            'can_play': self.can_play,
+            'maxPlays': self.max_plays,
+            'canPlay': self.can_play,
             'options': {
                 'showControls': self.show_controls,
                 'autoplay': self.autoplay
