@@ -75,10 +75,12 @@ class StudentMixin(object):
     @XBlock.json_handler
     def play(self, data, suffix=''):
         if self.can_play:
+            url = self._get_sound_url()
+
             self.plays += 1
 
             return {
-                'url': self._get_sound_url(),
+                'url': url,
                 'success': True
             }
 
